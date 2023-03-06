@@ -67,5 +67,10 @@ public class studentcontroller {
     studentrepository.deleteById(studid);
     return "Student deleted Successfully";
     }
+    @DeleteMapping("/students")
+    public String deleteStudentALL(){
+        studentrepository.deleteAll();
+        return " All Students deleted Successfully";
+    }
 
 }
