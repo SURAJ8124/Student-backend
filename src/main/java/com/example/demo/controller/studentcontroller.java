@@ -10,6 +10,7 @@ import com.example.demo.model.student;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -29,6 +30,16 @@ public class studentcontroller {
         List<student> studList= new ArrayList<>();
         studentrepository.findAll().forEach(studList::add );
         return new ResponseEntity<List<student>>(studList, HttpStatus.OK);
+    }
+    @GetMapping("/students/{studid}")
+    public ResponseEntity<student> getStudentbyId(@PathVariable long studid){
+        Optional<student> stud= studentrepository.findById(studid);
+        if(stud.isPresent()){
+            return new ResponseEntity<student>(stud.get(),HttpStatus.FOUND);
+        }
+        else {
+            return new ResponseEntity<student>(HttpStatus.NOT_FOUND);
+        }
     }
 
 }
