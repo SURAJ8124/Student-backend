@@ -41,5 +41,26 @@ public class studentcontroller {
             return new ResponseEntity<student>(HttpStatus.NOT_FOUND);
         }
     }
+    @PutMapping("/students/{studid}")
+    public String updateStudentbyid(@PathVariable long studid,@RequestBody student student){
+        Optional<student> stud= studentrepository.findById(studid);
+        if(stud.isPresent()){
+            student existStudent=stud.get();
+            existStudent.setStud_name(student.getStud_name());
+            existStudent.setStud_phone(student.getStud_phone());
+            existStudent.setStud_email(student.getStud_email());
+            existStudent.setStud_div(student.getStud_div());
+            existStudent.setStud_dob(student.getStud_dob());
+            existStudent.setStud_classs(student.getStud_classs());
+            existStudent.setStud_gender(student.getStud_gender());
+          studentrepository.save(existStudent);
+          return "Student Details against Id " + studid + " updated";
+
+        }
+         else {
+             return  "Student Details Not Found For StudnetId"+studid;
+        }
+    }
+
 
 }
