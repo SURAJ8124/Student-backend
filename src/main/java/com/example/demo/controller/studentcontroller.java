@@ -62,5 +62,10 @@ public class studentcontroller {
         }
     }
 
+    @DeleteMapping("/students/{studid}")
+    public String deleteStudentbyID(@PathVariable Long studid){
+    studentrepository.deleteById(studid);
+    return "Student deleted Successfully";
+    }
 
 }
